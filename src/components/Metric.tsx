@@ -1,0 +1,1 @@
+export default function Metric({label,value,icon}:{label:string;value:string;icon:string}){return <div className="metric"><span>{icon}</span><small>{label}</small><b>{value}</b></div>}
