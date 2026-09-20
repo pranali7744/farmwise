@@ -1,0 +1,50 @@
+{
+  "_metadata": {
+    "description": "Seasonal weather shock profiles and hazard weights for FarmWise simulator",
+    "sources": {
+      "temperature_stress": "ICAR-CRIDA (Central Research Institute for Dryland Agriculture) Agromet advisories",
+      "weather_anomalies": "India Meteorological Department (IMD) Agricultural Meteorology Division guidelines"
+    },
+    "prototype_assumptions": [
+      "Discrete aggregate seasonal modifiers approximating cumulative thermal and precipitation shocks",
+      "Sub-risk hazard scores (0-100) calibrated for composite agricultural risk formula"
+    ]
+  },
+  "weather_profiles": {
+    "optimal": {
+      "id": "optimal",
+      "name": "Optimal / Highly Favorable",
+      "description": "Ideal diurnal temperature range and solar radiation during grain/pod fill; regular well-distributed showers",
+      "modifier": 1.04,
+      "risk_score": 5.0
+    },
+    "normal": {
+      "id": "normal",
+      "name": "Normal / Seasonal Average",
+      "description": "Standard historical agro-meteorological conditions for the region and season",
+      "modifier": 1.00,
+      "risk_score": 15.0
+    },
+    "moderate_heatwave": {
+      "id": "moderate_heatwave",
+      "name": "Moderate Heatwave / Dry Spell",
+      "description": "2-4°C above normal during sensitive reproductive stages (anthesis/silking) or a 15-day dry break",
+      "modifier": 0.86,
+      "risk_score": 55.0
+    },
+    "severe_drought": {
+      "id": "severe_drought",
+      "name": "Severe Drought / Heat Shock",
+      "description": "Prolonged monsoon failure or extreme temperatures (>4°C anomaly) causing acute vapor pressure deficit and terminal stress",
+      "modifier": 0.70,
+      "risk_score": 90.0
+    },
+    "unseasonal_rain": {
+      "id": "unseasonal_rain",
+      "name": "Unseasonal Heavy Rain / Hail",
+      "description": "Excess rainfall, cyclonic depressions, or hail during flowering or pre-harvest ripening causing lodging and fungal rot",
+      "modifier": 0.78,
+      "risk_score": 65.0
+    }
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "_metadata": {
+    "description": "Soil suitability matrix for major field crops in India",
+    "sources": {
+      "soil_classification": "ICAR - National Bureau of Soil Survey and Land Use Planning (NBSS&LUP), Nagpur",
+      "suitability_criteria": "ICAR land capability classes and crop-soil suitability ratings"
+    },
+    "prototype_assumptions": [
+      "Soil modifiers normalized within [0.72, 1.05] interval",
+      "Pegging penalty for Groundnut in heavy shrink-swell Black Soils (0.85)"
+    ]
+  },
+  "soils": {
+    "alluvial_loam": {
+      "id": "alluvial_loam",
+      "name": "Alluvial Loam",
+      "description": "Deep, fertile soils of Indo-Gangetic and coastal plains; good water-holding and drainage",
+      "drainage": "Good",
+      "water_holding_capacity": "High",
+      "crop_modifiers": {
+        "rice": 1.02,
+        "wheat": 1.05,
+        "jowar": 1.00,
+        "cotton": 0.95,
+        "maize": 1.05,
+        "sugarcane": 1.04,
+        "soybean": 1.00,
+        "groundnut": 0.98
+      }
+    },
+    "black_soil": {
+      "id": "black_soil",
+      "name": "Black Soil (Vertisol)",
+      "description": "Deep clayey, shrink-swell soils of Deccan plateau; rich in calcium and moisture retention",
+      "drainage": "Moderate-Poor",
+      "water_holding_capacity": "Very High",
+      "crop_modifiers": {
+        "rice": 0.95,
+        "wheat": 1.00,
+        "jowar": 1.05,
+        "cotton": 1.05,
+        "maize": 0.98,
+        "sugarcane": 1.00,
+        "soybean": 1.05,
+        "groundnut": 0.85
+      }
+    },
+    "red_sandy_loam": {
+      "id": "red_sandy_loam",
+      "name": "Red Sandy Loam (Alfisol)",
+      "description": "Porous, well-drained soils of Southern and Eastern peninsular India; ideal for oilseeds and millets",
+      "drainage": "Excessive-Good",
+      "water_holding_capacity": "Moderate",
+      "crop_modifiers": {
+        "rice": 0.90,
+        "wheat": 0.92,
+        "jowar": 1.00,
+        "cotton": 0.92,
+        "maize": 1.00,
+        "sugarcane": 0.90,
+        "soybean": 0.95,
+        "groundnut": 1.05
+      }
+    },
+    "clay_loam": {
+      "id": "clay_loam",
+      "name": "Clay Loam",
+      "description": "Heavy textured soil with balanced silt and clay; high fertility and water retention",
+      "drainage": "Moderate",
+      "water_holding_capacity": "High",
+      "crop_modifiers": {
+        "rice": 1.05,
+        "wheat": 1.02,
+        "jowar": 0.95,
+        "cotton": 0.98,
+        "maize": 0.96,
+        "sugarcane": 1.02,
+        "soybean": 0.98,
+        "groundnut": 0.88
+      }
+    },
+    "sandy_soil": {
+      "id": "sandy_soil",
+      "name": "Sandy Soil",
+      "description": "Light coarse-textured soil; low organic matter, rapid percolation, drought-prone without constant moisture",
+      "drainage": "Excessive",
+      "water_holding_capacity": "Low",
+      "crop_modifiers": {
+        "rice": 0.72,
+        "wheat": 0.80,
+        "jowar": 0.90,
+        "cotton": 0.80,
+        "maize": 0.85,
+        "sugarcane": 0.75,
+        "soybean": 0.80,
+        "groundnut": 0.95
+      }
+    }
+  }
+}
