@@ -40,7 +40,7 @@ User → Frontend → API → Simulation Engine → Scenario Engine → Results 
 
 FarmWise is a prototype decision-support simulator. Its outputs are based on configured simulation assumptions and are not guaranteed agronomic predictions or professional agricultural advice.
 
-he platform provides:
+The platform provides:
 
 🌱 Scenario-based farming simulation
 💧 Water and resource analysis
