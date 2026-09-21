@@ -1,1 +1,105 @@
-import{useState}from"react";import{simulate}from"./api";import{defaults}from"./components/Form";import Form from"./components/Form";import Results from"./components/Results";import type{FarmInputs,SimulationResult}from"./types";export default function App(){const[v,setV]=useState<FarmInputs>(defaults),[r,setR]=useState<SimulationResult|null>(null),[busy,setBusy]=useState(false),[wf,setWf]=useState<SimulationResult|null>(null),[water,setWater]=useState(120),[sc,setSc]=useState<{v:FarmInputs;r:SimulationResult}[]>([]);const run=async()=>{setBusy(true);try{setR(await simulate(v))}catch(e){alert(String(e))}finally{setBusy(false)}};const what=async()=>{try{setWf(await simulate({...v,scenario_name:"What-If",water_availability:water}))}catch(e){alert(String(e))}};return <><header><div>🌱 <b>FarmWise</b><small>Scenario & Decision Simulator</small></div><select><option>English</option><option>मराठी</option><option>हिन्दी</option></select></header><main><section className="hero"><div><span>FARM DECISION SIMULATOR</span><h1>Test your farming decisions before you make them.</h1><p>Set conditions → Simulate → Change something → Compare → Understand.</p></div></section><Form v={v} setV={setV} run={run} busy={busy}/><Results r={r}/><section className="card"><div className="head"><div><em>03</em><h2>What-If Lab</h2></div><p>Re-run the real simulation with a changed condition.</p></div><label>What-if water availability: {water}%<input type="range" min="0" max="150" value={water} onChange={e=>setWater(+e.target.value)}/></label><button className="primary" onClick={what} disabled={!r}>Simulate What-If</button>{wf&&<div className="compare"><strong>Base → What-If</strong><span>Yield: {r?.yieldValue??"—"} → {wf.yieldValue??"—"}</span><span>Cost: {r?.cost==null?"—":`₹${r.cost}`} → {wf.cost==null?"—":`₹${wf.cost}`}</span><span>Water: {r?.water??"—"} → {wf.water??"—"}</span><span>Risk: {r?.risk??"—"} → {wf.risk}</span></div>}</section><section className="card"><div className="head"><div><em>04</em><h2>Scenario comparison</h2></div><p>Each saved scenario is re-simulated through POST /api/simulate.</p></div><button className="secondary" onClick={()=>r&&setSc([...sc,{v:{...v},r}])} disabled={!r}>+ Add current scenario</button>{sc.length>0&&<table><thead><tr><th>Scenario</th><th>Yield</th><th>Cost</th><th>Water</th><th>Risk</th></tr></thead><tbody>{sc.map((x,i)=><tr key={i}><td>{x.v.scenario_name||`Scenario ${i+1}`}</td><td>{x.r.yieldValue??"—"}</td><td>{x.r.cost==null?"—":`₹${x.r.cost}`}</td><td>{x.r.water??"—"}</td><td>{x.r.risk}</td></tr>)}</tbody></table>}</section></main><footer>FarmWise · Rule-based prototype</footer></>}
+import { useState } from "react";
+import { compare, simulate } from "./api";
+import Form, { defaults } from "./components/Form";
+import Results from "./components/Results";
+import type { FarmInputs, SimulationResult } from "./types";
+
+export default function App() {
+  const [inputs, setInputs] = useState<FarmInputs>(defaults);
+  const [result, setResult] = useState<SimulationResult | null>(null);
+  const [whatIf, setWhatIf] = useState<SimulationResult | null>(null);
+  const [comparisonText, setComparisonText] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
+
+  async function run() {
+    setBusy(true);
+    setError("");
+    setWhatIf(null);
+    setComparisonText("");
+    try {
+      setResult(await simulate(inputs));
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Simulation failed.");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function runWhatIf() {
+    if (!result) return;
+    setBusy(true);
+    setError("");
+    try {
+      const changed: FarmInputs = {
+        ...inputs,
+        scenario_name: "What-If: 120% water",
+        water_availability: Math.min(150, inputs.water_availability + 20),
+      };
+      const [simulated, comparison] = await Promise.all([
+        simulate(changed),
+        compare(inputs, changed),
+      ]);
+      setWhatIf(simulated);
+      setComparisonText(comparison.comparison_summary.plain_english_explanation);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "What-if simulation failed.");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <>
+      <header>
+        <div>
+          <div className="brand">🌱 <b>FarmWise</b></div>
+          <small>Scenario & Decision Simulator</small>
+        </div>
+        <select aria-label="Language">
+          <option>English</option>
+          <option>मराठी</option>
+          <option>हिन्दी</option>
+        </select>
+      </header>
+
+      <main>
+        <section className="hero">
+          <span>AGRI PS01 · FARM DECISION SIMULATOR</span>
+          <h1>Test your farming decisions before you make them.</h1>
+          <p>Set conditions → Simulate → Change something → Compare → Understand.</p>
+        </section>
+
+        <Form value={inputs} onChange={setInputs} onRun={run} busy={busy} />
+
+        {error && <div className="error">{error}</div>}
+
+        <Results result={result} />
+
+        <section className="card">
+          <div className="section-head">
+            <div><span className="step">03</span><h2>What-If Lab</h2></div>
+            <p>Change water availability and run the real backend again.</p>
+          </div>
+
+          <button className="secondary" onClick={runWhatIf} disabled={!result || busy}>
+            {busy ? "Running…" : "Run What-If scenario"}
+          </button>
+
+          {whatIf && result && (
+            <div className="compare-grid">
+              <div><small>Yield</small><b>{result.yieldValue} → {whatIf.yieldValue} t/ha</b></div>
+              <div><small>Cost</small><b>₹{result.cost?.toLocaleString("en-IN")} → ₹{whatIf.cost?.toLocaleString("en-IN")}</b></div>
+              <div><small>Water</small><b>{result.water} → {whatIf.water} m³</b></div>
+              <div><small>Risk</small><b>{result.risk} → {whatIf.risk}</b></div>
+            </div>
+          )}
+
+          {comparisonText && <p className="explanation">{comparisonText}</p>}
+        </section>
+      </main>
+
+      <footer>FarmWise · Transparent rule-based simulation</footer>
+    </>
+  );
+}
