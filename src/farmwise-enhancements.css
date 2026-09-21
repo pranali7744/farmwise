@@ -1,0 +1,81 @@
+
+.fw-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 16px 5%;
+  background: rgba(255,255,255,.97);
+  border-bottom: 1px solid #e5e7eb;
+  box-shadow: 0 2px 10px rgba(0,0,0,.05);
+}
+
+.fw-brand { display:flex; align-items:center; gap:12px; }
+.fw-logo { font-size:32px; }
+.fw-brand strong { display:block; font-size:25px; }
+.fw-brand small { display:block; color:#6b7280; }
+
+.fw-language { display:flex; align-items:center; gap:5px; flex-wrap:wrap; }
+.fw-language > span { font-size:12px; color:#6b7280; margin-right:5px; }
+.fw-language button {
+  border:1px solid #d1d5db;
+  background:#f9fafb;
+  padding:7px 10px;
+  border-radius:8px;
+  cursor:pointer;
+}
+.fw-language button.active { background:#166534; color:#fff; border-color:#166534; }
+
+.fw-hero { padding:45px 5% 35px; text-align:center; }
+.fw-hero > span { font-size:12px; font-weight:800; letter-spacing:.08em; color:#166534; }
+.fw-hero h1 { margin:10px auto; max-width:850px; font-size:clamp(30px,5vw,52px); line-height:1.05; }
+.fw-hero p { color:#6b7280; font-size:16px; }
+
+.fw-suggestions { border:2px solid #bbf7d0; }
+.fw-suggestion-list { display:grid; gap:12px; }
+.fw-suggestion {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  padding:16px;
+  background:#f0fdf4;
+  border:1px solid #bbf7d0;
+  border-radius:14px;
+}
+.fw-suggestion h3 { margin:0 0 5px; }
+.fw-suggestion p { margin:0; color:#4b5563; font-size:14px; }
+.fw-suggestion-good { padding:18px; background:#f0fdf4; border-radius:14px; }
+.fw-suggestion-good p { color:#4b5563; }
+
+.fw-compare {
+  margin-top:20px;
+  padding:20px;
+  border-radius:16px;
+  background:#f0fdf4;
+  border:1px solid #bbf7d0;
+  display:grid;
+  gap:10px;
+}
+.fw-compare h3 { margin-top:0; }
+
+.fw-table-wrap { overflow-x:auto; margin-top:20px; }
+.fw-table-wrap table { width:100%; border-collapse:collapse; }
+.fw-table-wrap th,.fw-table-wrap td {
+  padding:12px;
+  text-align:left;
+  border-bottom:1px solid #e5e7eb;
+}
+.fw-table-wrap th { background:#f0fdf4; }
+
+.fw-reset-area { display:flex; justify-content:center; padding:25px 0; }
+
+@media (max-width:700px) {
+  .fw-navbar { flex-direction:column; align-items:flex-start; }
+  .fw-language { width:100%; }
+  .fw-suggestion { flex-direction:column; align-items:flex-start; }
+  .fw-suggestion button { width:100%; }
+}
