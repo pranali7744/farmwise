@@ -1,1 +1,81 @@
-import type{FarmInputs,SimulationResult,Factor}from"./types";const base=(import.meta.env.VITE_API_BASE_URL||"").replace(/\/$/,"");const num=(v:unknown)=>{if(typeof v==="number"&&Number.isFinite(v))return v;if(typeof v==="string"){const m=v.replace(/,/g,"").match(/-?\d+(?:\.\d+)?/);return m?Number(m[0]):null}return null};const text=(o:any,ks:string[],d:string)=>{for(const k of ks)if(typeof o?.[k]==="string"&&o[k].trim())return o[k];return d};const flat=(d:any)=>{const o={...(d||{})};for(const k of["result","results","simulation","data","output","metrics"])if(o[k]&&typeof o[k]==="object"&&!Array.isArray(o[k]))Object.assign(o,o[k]);return o};export async function simulate(i:FarmInputs):Promise<SimulationResult>{const r=await fetch(`${base}/api/simulate`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(i)});if(!r.ok)throw Error(await r.text()||`HTTP ${r.status}`);return normalize(await r.json())}function normalize(d:any):SimulationResult{const o=flat(d);const rv=o.risk??o.risk_level??o.risk_assessment;let risk=typeof rv==="object"?text(rv,["level","label","risk"],"Medium"):String(rv??"Medium");const fv=o.factors??o.factor_analysis??o.contributing_factors;let factors:Factor[]=Array.isArray(fv)?fv.map((x:any,n)=>{const impact=num(x?.impact??x?.score??x?.effect??x?.contribution)??1;return{name:text(x,["name","factor","label"],`Factor ${n+1}`),impact,direction:impact>0?"positive":impact<0?"negative":"neutral"}}):[];return{raw:o,yieldValue:num(o.estimated_yield??o.expected_yield??o.yield??o.yield_estimate??o.final_yield),cost:num(o.estimated_cost??o.total_cost??o.cost??o.cost_estimate),water:num(o.water_usage??o.water_used??o.water_consumption??o.water_required??o.water),yieldUnit:text(o,["yield_unit","yield_units"],"units"),waterUnit:text(o,["water_unit","water_units"],"units"),risk,explanation:text(o,["explanation","reasoning","summary","message"],"Simulation completed. Review the returned factors and compare scenarios."),factors}}
+import type { ComparisonResult, Factor, FarmInputs, SimulationResult } from "./types";
+
+const base = (import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000").replace(/\/$/, "");
+
+async function post(path: string, body: unknown) {
+  const response = await fetch(`${base}${path}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+
+  if (!response.ok) {
+    let message = `HTTP ${response.status}`;
+    try {
+      const data = await response.json();
+      message = data.detail || message;
+    } catch {
+      // Keep HTTP fallback.
+    }
+    throw new Error(message);
+  }
+
+  return response.json();
+}
+
+const number = (value: unknown): number | null => {
+  if (typeof value === "number" && Number.isFinite(value)) return value;
+  return null;
+};
+
+export async function simulate(inputs: FarmInputs): Promise<SimulationResult> {
+  return normalize(await post("/api/simulate", inputs));
+}
+
+export async function compare(
+  scenarioA: FarmInputs,
+  scenarioB: FarmInputs
+): Promise<ComparisonResult> {
+  return post("/api/simulate/compare", {
+    scenario_a: scenarioA,
+    scenario_b: scenarioB,
+  });
+}
+
+function normalize(data: any): SimulationResult {
+  const yieldBlock = data?.yield ?? {};
+  const costBlock = data?.costs_and_returns ?? {};
+  const waterBlock = data?.water_applied_allocated ?? {};
+  const riskBlock = data?.risk ?? {};
+
+  const rawFactors = Array.isArray(data?.factor_attribution)
+    ? data.factor_attribution
+    : [];
+
+  const factors: Factor[] = rawFactors.map((item: any) => {
+    const impact = number(item?.impact_t_ha) ?? 0;
+    return {
+      name: item?.factor_name ?? item?.factor ?? "Factor",
+      impact,
+      direction: impact > 0 ? "positive" : impact < 0 ? "negative" : "neutral",
+    };
+  });
+
+  return {
+    raw: data,
+    scenarioName: data?.scenario_name ?? "Scenario",
+    yieldValue: number(yieldBlock.estimated_yield_t_ha),
+    production: number(yieldBlock.total_production_tonnes),
+    cost: number(costBlock.total_cost_inr),
+    profit: number(costBlock.net_profit_inr),
+    water: number(waterBlock.total_water_m3),
+    riskScore: number(riskBlock.score),
+    risk: riskBlock.category ?? "Unknown",
+    yieldUnit: "t/ha",
+    waterUnit: "m³",
+    explanation:
+      riskBlock.explanation ??
+      `The simulation estimates ${yieldBlock.estimated_yield_t_ha ?? "—"} t/ha based on the selected farm conditions.`,
+    factors,
+  };
+}
