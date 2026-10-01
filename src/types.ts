@@ -11,6 +11,11 @@ export interface FarmInputs {
   weather: string;
   planting_date: string;
   fertilizer: string;
+  farm_size_ha?: number;
+  farm_size?: number;
+  planting_schedule?: string;
+  input_usage?: string;
+  [key: string]: unknown;
 }
 
 export interface Factor {

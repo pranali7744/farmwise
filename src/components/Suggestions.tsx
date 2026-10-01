@@ -23,6 +23,7 @@ const text = {
     apply: "Apply & Simulate",
     good: "Your current setup does not show an obvious adjustment.",
     goodDesc: "Try What-If scenarios to explore alternatives.",
+    note: "Suggestions use transparent rule-based conditions; they do not generate new simulation numbers.",
   },
   mr: {
     title: "स्मार्ट सूचना",
@@ -38,6 +39,7 @@ const text = {
     apply: "लागू करा आणि सिम्युलेट करा",
     good: "सध्याच्या सेटअपमध्ये स्पष्ट बदल आवश्यक दिसत नाही.",
     goodDesc: "पर्यायी परिस्थिती तपासण्यासाठी What-If वापरा.",
+    note: "सूचना पारदर्शक नियम-आधारित परिस्थिती वापरतात; त्या नवीन सिम्युलेशन आकडे तयार करत नाहीत.",
   },
   hi: {
     title: "स्मार्ट सुझाव",
@@ -53,6 +55,7 @@ const text = {
     apply: "लागू करें और सिमुलेट करें",
     good: "वर्तमान सेटअप में कोई स्पष्ट बदलाव आवश्यक नहीं दिखता।",
     goodDesc: "वैकल्पिक परिस्थितियाँ देखने के लिए What-If का उपयोग करें।",
+    note: "सुझाव पारदर्शी नियम-आधारित स्थितियों का उपयोग करते हैं; वे नए सिमुलेशन आंकड़े उत्पन्न नहीं करते।",
   },
 };
 
@@ -122,7 +125,7 @@ export default function Suggestions({ inputs, language, onApply }: Props) {
       )}
 
       <small className="muted">
-        Suggestions use transparent rule-based conditions; they do not generate new simulation numbers.
+        {t.note}
       </small>
     </section>
   );
