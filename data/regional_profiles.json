@@ -1,0 +1,190 @@
+{
+  "_metadata": {
+    "description": "State-level agro-climatic profiles for FarmWise simulator in India",
+    "sources": {
+      "zones": "Planning Commission Agro-Climatic Regional Planning / ICAR agro-ecological regions",
+      "yield_variations": "Directorate of Economics and Statistics (DES) State-wise Crop Yield Statistics"
+    },
+    "prototype_assumptions": [
+      "default_rainfall_share: Simplified regional average proportion of total crop water provided naturally by monsoon/rainfall without pumping costs",
+      "state_crop_yield_mult: Calibrated state-level yield multiplier relative to the national benchmark baseline"
+    ]
+  },
+  "states": {
+    "punjab": {
+      "id": "punjab",
+      "name": "Punjab",
+      "zone": "Trans-Gangetic Plain",
+      "default_soil": "alluvial_loam",
+      "irrigation_penetration_pct": 98,
+      "default_rainfall_share": 0.20,
+      "state_crop_yield_mult": {
+        "wheat": 1.25,
+        "rice": 1.20,
+        "cotton": 1.10,
+        "maize": 1.15
+      },
+      "supported_crops": ["wheat", "rice", "cotton", "maize"]
+    },
+    "haryana": {
+      "id": "haryana",
+      "name": "Haryana",
+      "zone": "Trans-Gangetic Plain",
+      "default_soil": "alluvial_loam",
+      "irrigation_penetration_pct": 90,
+      "default_rainfall_share": 0.25,
+      "state_crop_yield_mult": {
+        "wheat": 1.20,
+        "rice": 1.15,
+        "cotton": 1.05,
+        "maize": 1.10
+      },
+      "supported_crops": ["wheat", "rice", "cotton", "maize"]
+    },
+    "uttar_pradesh": {
+      "id": "uttar_pradesh",
+      "name": "Uttar Pradesh",
+      "zone": "Upper and Middle Gangetic Plains",
+      "default_soil": "alluvial_loam",
+      "irrigation_penetration_pct": 80,
+      "default_rainfall_share": 0.40,
+      "state_crop_yield_mult": {
+        "wheat": 1.05,
+        "rice": 1.00,
+        "sugarcane": 1.05,
+        "maize": 0.95
+      },
+      "supported_crops": ["wheat", "rice", "sugarcane", "maize"]
+    },
+    "maharashtra": {
+      "id": "maharashtra",
+      "name": "Maharashtra",
+      "zone": "Western Plateau and Hills",
+      "default_soil": "black_soil",
+      "irrigation_penetration_pct": 20,
+      "default_rainfall_share": 0.65,
+      "state_crop_yield_mult": {
+        "cotton": 1.00,
+        "soybean": 1.05,
+        "sugarcane": 1.15,
+        "jowar": 1.10
+      },
+      "supported_crops": ["cotton", "soybean", "sugarcane", "jowar"]
+    },
+    "madhya_pradesh": {
+      "id": "madhya_pradesh",
+      "name": "Madhya Pradesh",
+      "zone": "Central Plateau and Hills",
+      "default_soil": "black_soil",
+      "irrigation_penetration_pct": 45,
+      "default_rainfall_share": 0.60,
+      "state_crop_yield_mult": {
+        "soybean": 1.10,
+        "wheat": 0.95,
+        "maize": 1.00,
+        "jowar": 1.00
+      },
+      "supported_crops": ["soybean", "wheat", "maize", "jowar"]
+    },
+    "gujarat": {
+      "id": "gujarat",
+      "name": "Gujarat",
+      "zone": "Gujarat Plains and Hills",
+      "default_soil": "black_soil",
+      "irrigation_penetration_pct": 50,
+      "default_rainfall_share": 0.45,
+      "state_crop_yield_mult": {
+        "groundnut": 1.20,
+        "cotton": 1.15,
+        "wheat": 1.00
+      },
+      "supported_crops": ["groundnut", "cotton", "wheat"]
+    },
+    "karnataka": {
+      "id": "karnataka",
+      "name": "Karnataka",
+      "zone": "Southern Plateau and Hills",
+      "default_soil": "red_sandy_loam",
+      "irrigation_penetration_pct": 35,
+      "default_rainfall_share": 0.55,
+      "state_crop_yield_mult": {
+        "maize": 1.10,
+        "jowar": 1.05,
+        "cotton": 0.95,
+        "groundnut": 1.00
+      },
+      "supported_crops": ["maize", "jowar", "cotton", "groundnut"]
+    },
+    "andhra_pradesh": {
+      "id": "andhra_pradesh",
+      "name": "Andhra Pradesh",
+      "zone": "East Coast Plains and Hills",
+      "default_soil": "red_sandy_loam",
+      "irrigation_penetration_pct": 50,
+      "default_rainfall_share": 0.50,
+      "state_crop_yield_mult": {
+        "rice": 1.15,
+        "cotton": 1.05,
+        "groundnut": 1.05,
+        "maize": 1.05
+      },
+      "supported_crops": ["rice", "cotton", "groundnut", "maize"]
+    },
+    "telangana": {
+      "id": "telangana",
+      "name": "Telangana",
+      "zone": "Southern Plateau and Hills",
+      "default_soil": "red_sandy_loam",
+      "irrigation_penetration_pct": 50,
+      "default_rainfall_share": 0.50,
+      "state_crop_yield_mult": {
+        "rice": 1.10,
+        "cotton": 1.05,
+        "maize": 1.05,
+        "soybean": 0.95
+      },
+      "supported_crops": ["rice", "cotton", "maize", "soybean"]
+    },
+    "tamil_nadu": {
+      "id": "tamil_nadu",
+      "name": "Tamil Nadu",
+      "zone": "Southern / East Coast",
+      "default_soil": "red_sandy_loam",
+      "irrigation_penetration_pct": 55,
+      "default_rainfall_share": 0.45,
+      "state_crop_yield_mult": {
+        "rice": 1.15,
+        "groundnut": 1.10,
+        "sugarcane": 1.15
+      },
+      "supported_crops": ["rice", "groundnut", "sugarcane"]
+    },
+    "west_bengal": {
+      "id": "west_bengal",
+      "name": "West Bengal",
+      "zone": "Lower Gangetic Plain",
+      "default_soil": "clay_loam",
+      "irrigation_penetration_pct": 60,
+      "default_rainfall_share": 0.70,
+      "state_crop_yield_mult": {
+        "rice": 1.15,
+        "maize": 1.00
+      },
+      "supported_crops": ["rice", "maize"]
+    },
+    "bihar": {
+      "id": "bihar",
+      "name": "Bihar",
+      "zone": "Middle Gangetic Plain",
+      "default_soil": "alluvial_loam",
+      "irrigation_penetration_pct": 55,
+      "default_rainfall_share": 0.60,
+      "state_crop_yield_mult": {
+        "rice": 0.95,
+        "wheat": 0.90,
+        "maize": 1.10
+      },
+      "supported_crops": ["rice", "wheat", "maize"]
+    }
+  }
+}

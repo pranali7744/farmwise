@@ -1,0 +1,243 @@
+{
+  "_metadata": {
+    "description": "Crop baseline agronomic and economic parameters for FarmWise simulator",
+    "sources": {
+      "fao_ky": "FAO Irrigation and Drainage Paper No. 33 (Yield Response to Water, Doorenbos & Kassam, 1979)",
+      "water_req_mm": "Central Water Commission (CWC) & ICAR benchmark crop water requirements (delta)",
+      "rec_npk_kg_ha": "ICAR Package of Practices for Field Crops / State Agricultural Universities",
+      "base_yield_t_ha": "Directorate of Economics and Statistics (DES), Ministry of Agriculture & Farmers Welfare, GoI",
+      "msp_price_qtl": "Cabinet Committee on Economic Affairs (CCEA) - MSP for KMS 2024-25, RMS 2025-26, & Sugarcane FRP 2024-25",
+      "base_cost_ha": "CACP Cost of Cultivation (A2+FL operational baseline), Comprehensive Scheme (DES/CACP)"
+    },
+    "prototype_assumptions": [
+      "Cost breakdown ratio: Seed (~18%), Fertilizer (~28%), Irrigation pumping (~22%), Labor/Machinery (~32%)",
+      "Discrete fertilizer modifier values for deficient, intensive, excessive and organic application"
+    ]
+  },
+  "crops": {
+    "rice": {
+      "id": "rice",
+      "name": "Rice (Paddy)",
+      "scientific_name": "Oryza sativa",
+      "season": "Kharif",
+      "is_semi_aquatic": true,
+      "base_yield_t_ha": 3.60,
+      "water_req_mm": 1200,
+      "fao_ky": 1.00,
+      "rec_npk_kg_ha": { "n": 120, "p": 60, "k": 40 },
+      "base_cost_ha": 48000,
+      "msp_price_qtl": 2300,
+      "price_unit": "quintal",
+      "cost_breakdown_ratio": {
+        "seed": 0.15,
+        "fert": 0.25,
+        "irrigation_pump": 0.30,
+        "labor_machinery": 0.30
+      },
+      "fertilizer_modifiers": {
+        "low": 0.78,
+        "moderate": 0.90,
+        "recommended": 1.00,
+        "high": 1.03,
+        "excessive": 0.94,
+        "organic": 0.88
+      }
+    },
+    "wheat": {
+      "id": "wheat",
+      "name": "Wheat",
+      "scientific_name": "Triticum aestivum",
+      "season": "Rabi",
+      "is_semi_aquatic": false,
+      "base_yield_t_ha": 3.80,
+      "water_req_mm": 450,
+      "fao_ky": 1.15,
+      "rec_npk_kg_ha": { "n": 120, "p": 60, "k": 40 },
+      "base_cost_ha": 38000,
+      "msp_price_qtl": 2425,
+      "price_unit": "quintal",
+      "cost_breakdown_ratio": {
+        "seed": 0.18,
+        "fert": 0.28,
+        "irrigation_pump": 0.22,
+        "labor_machinery": 0.32
+      },
+      "fertilizer_modifiers": {
+        "low": 0.78,
+        "moderate": 0.90,
+        "recommended": 1.00,
+        "high": 1.03,
+        "excessive": 0.95,
+        "organic": 0.86
+      }
+    },
+    "jowar": {
+      "id": "jowar",
+      "name": "Jowar (Sorghum)",
+      "scientific_name": "Sorghum bicolor",
+      "season": "Kharif/Rabi",
+      "is_semi_aquatic": false,
+      "base_yield_t_ha": 1.30,
+      "water_req_mm": 400,
+      "fao_ky": 0.90,
+      "rec_npk_kg_ha": { "n": 80, "p": 40, "k": 40 },
+      "base_cost_ha": 26000,
+      "msp_price_qtl": 3371,
+      "price_unit": "quintal",
+      "cost_breakdown_ratio": {
+        "seed": 0.16,
+        "fert": 0.26,
+        "irrigation_pump": 0.18,
+        "labor_machinery": 0.40
+      },
+      "fertilizer_modifiers": {
+        "low": 0.84,
+        "moderate": 0.93,
+        "recommended": 1.00,
+        "high": 1.02,
+        "excessive": 0.97,
+        "organic": 0.90
+      }
+    },
+    "cotton": {
+      "id": "cotton",
+      "name": "Cotton (Seed Cotton / Kapas)",
+      "scientific_name": "Gossypium hirsutum",
+      "season": "Kharif",
+      "is_semi_aquatic": false,
+      "base_yield_t_ha": 1.80,
+      "water_req_mm": 700,
+      "fao_ky": 0.85,
+      "rec_npk_kg_ha": { "n": 120, "p": 60, "k": 60 },
+      "base_cost_ha": 56000,
+      "msp_price_qtl": 7121,
+      "price_unit": "quintal",
+      "cost_breakdown_ratio": {
+        "seed": 0.20,
+        "fert": 0.30,
+        "irrigation_pump": 0.18,
+        "labor_machinery": 0.32
+      },
+      "fertilizer_modifiers": {
+        "low": 0.76,
+        "moderate": 0.89,
+        "recommended": 1.00,
+        "high": 1.02,
+        "excessive": 0.92,
+        "organic": 0.85
+      }
+    },
+    "maize": {
+      "id": "maize",
+      "name": "Maize",
+      "scientific_name": "Zea mays",
+      "season": "Kharif/Rabi",
+      "is_semi_aquatic": false,
+      "base_yield_t_ha": 3.50,
+      "water_req_mm": 550,
+      "fao_ky": 1.25,
+      "rec_npk_kg_ha": { "n": 120, "p": 60, "k": 40 },
+      "base_cost_ha": 34000,
+      "msp_price_qtl": 2225,
+      "price_unit": "quintal",
+      "cost_breakdown_ratio": {
+        "seed": 0.20,
+        "fert": 0.30,
+        "irrigation_pump": 0.20,
+        "labor_machinery": 0.30
+      },
+      "fertilizer_modifiers": {
+        "low": 0.75,
+        "moderate": 0.88,
+        "recommended": 1.00,
+        "high": 1.04,
+        "excessive": 0.96,
+        "organic": 0.85
+      }
+    },
+    "sugarcane": {
+      "id": "sugarcane",
+      "name": "Sugarcane",
+      "scientific_name": "Saccharum officinarum",
+      "season": "Annual",
+      "is_semi_aquatic": false,
+      "base_yield_t_ha": 80.00,
+      "water_req_mm": 2000,
+      "fao_ky": 1.20,
+      "rec_npk_kg_ha": { "n": 250, "p": 100, "k": 100 },
+      "base_cost_ha": 98000,
+      "msp_price_qtl": 340,
+      "price_unit": "quintal",
+      "cost_breakdown_ratio": {
+        "seed": 0.22,
+        "fert": 0.26,
+        "irrigation_pump": 0.26,
+        "labor_machinery": 0.26
+      },
+      "fertilizer_modifiers": {
+        "low": 0.72,
+        "moderate": 0.87,
+        "recommended": 1.00,
+        "high": 1.04,
+        "excessive": 0.98,
+        "organic": 0.84
+      }
+    },
+    "soybean": {
+      "id": "soybean",
+      "name": "Soybean",
+      "scientific_name": "Glycine max",
+      "season": "Kharif",
+      "is_semi_aquatic": false,
+      "base_yield_t_ha": 1.50,
+      "water_req_mm": 450,
+      "fao_ky": 0.85,
+      "rec_npk_kg_ha": { "n": 25, "p": 60, "k": 40 },
+      "base_cost_ha": 29000,
+      "msp_price_qtl": 4892,
+      "price_unit": "quintal",
+      "cost_breakdown_ratio": {
+        "seed": 0.22,
+        "fert": 0.24,
+        "irrigation_pump": 0.16,
+        "labor_machinery": 0.38
+      },
+      "fertilizer_modifiers": {
+        "low": 0.86,
+        "moderate": 0.94,
+        "recommended": 1.00,
+        "high": 1.02,
+        "excessive": 0.98,
+        "organic": 0.92
+      }
+    },
+    "groundnut": {
+      "id": "groundnut",
+      "name": "Groundnut (Pod)",
+      "scientific_name": "Arachis hypogaea",
+      "season": "Kharif/Rabi",
+      "is_semi_aquatic": false,
+      "base_yield_t_ha": 1.70,
+      "water_req_mm": 550,
+      "fao_ky": 0.70,
+      "rec_npk_kg_ha": { "n": 25, "p": 50, "k": 50 },
+      "base_cost_ha": 39000,
+      "msp_price_qtl": 6783,
+      "price_unit": "quintal",
+      "cost_breakdown_ratio": {
+        "seed": 0.26,
+        "fert": 0.22,
+        "irrigation_pump": 0.18,
+        "labor_machinery": 0.34
+      },
+      "fertilizer_modifiers": {
+        "low": 0.85,
+        "moderate": 0.93,
+        "recommended": 1.00,
+        "high": 1.02,
+        "excessive": 0.97,
+        "organic": 0.91
+      }
+    }
+  }
+}
